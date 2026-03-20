@@ -39,6 +39,8 @@ const Interviews = () => {
     const userRole = localStorage.getItem('userRole');
     const currentUserName = localStorage.getItem('userName') || "Interviewer";
 
+    const [loadingId, setLoadingId] = useState(null);
+
     useEffect(() => {
         fetchBookings();
     }, []);
@@ -87,7 +89,8 @@ const Interviews = () => {
 
     const handleApprove = async (id) => {
         try {
-            setActionLoading(true);
+        //    setActionLoading(true);
+               setLoadingId(id)
             const res = await interviewApi.updateBookingStatus(id, 'accepted');
             if (res.success) {
                 showNotify('Interview Approved successfully', 'success');
@@ -96,14 +99,15 @@ const Interviews = () => {
         } catch (error) {
             showNotify(error.message || 'Approval failed', 'error');
         } finally {
-            setActionLoading(false);
+            setLoadingId(null)
         }
     };
 
     const handleConfirmReject = async () => {
         if (!rejectionComment.trim()) return showNotify('Reason is mandatory', 'error');
         try {
-            setActionLoading(true);
+            // setActionLoading(true);
+             setLoadingId(id)
             const res = await interviewApi.updateBookingStatus(rejectingUser._id, 'rejected', rejectionComment);
             if (res.success) {
                 showNotify(`Rejected ${rejectingUser.userName}`, 'success');
@@ -114,7 +118,8 @@ const Interviews = () => {
         } catch (error) {
             showNotify(error.message || 'Rejection failed', 'error');
         } finally {
-            setActionLoading(false);
+            // setActionLoading(false);
+             setLoadingId(null)
         }
     };
 
@@ -221,10 +226,13 @@ const Interviews = () => {
                                     </span>
                                 </td>
                                 <td className="px-8 py-6 text-right">
-                                    <div className="flex justify-end gap-2.5">
-                                        <button onClick={() => window.open(booking.meetLink, '_blank')} className="p-3 bg-indigo-600 text-white rounded-xl shadow-lg hover:-translate-y-0.5 transition-all"><Video size={18} /></button>
-                                        <button disabled={actionLoading} onClick={() => setRejectingUser(booking)} className="px-5 py-2.5 rounded-xl border border-rose-200 text-rose-600 font-bold text-xs hover:bg-rose-500 hover:text-white transition-all disabled:opacity-50">Reject</button>
-                                        <button disabled={actionLoading} onClick={() => handleApprove(booking._id)} className="px-5 py-2.5 bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-emerald-600 transition-all shadow-lg flex items-center gap-2">
+                                    <div className="flex justify-end gap-2.5 cursor-pointer">
+                                        <button onClick={() => window.open(booking.meetLink, '_blank')} className="p-3 cursor-pointer bg-indigo-600 text-white rounded-xl shadow-lg hover:-translate-y-0.5 transition-all"><Video size={18} /></button>
+
+
+                                       
+                                        <button disabled={loadingId === booking._id} onClick={() => setRejectingUser(booking)} className="px-5 py-2.5 cursor-pointer rounded-xl border border-rose-200 text-rose-600 font-bold text-xs hover:bg-rose-500 hover:text-white transition-all disabled:opacity-50">Reject</button>
+                                        <button disabled={loadingId === booking._id} onClick={() => handleApprove(booking._id)} className="px-5 py-2.5 cursor-pointer bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-emerald-600 transition-all shadow-lg flex items-center gap-2">
                                             {actionLoading ? <Loader2 size={14} className="animate-spin" /> : 'Approve'}
                                         </button>
                                     </div>
