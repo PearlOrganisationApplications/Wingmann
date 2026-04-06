@@ -9,6 +9,7 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
+  
   const token = localStorage.getItem('token');
   // Logic to skip token for login
   const isLoginRequest = config.url.includes('/login');

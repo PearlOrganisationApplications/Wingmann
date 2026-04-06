@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api.wingmann.online/api',
+        target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
       },
