@@ -18,15 +18,16 @@ export const addRestaurant = async (formData) => {
 };
 
 export const updateRestaurant = async (restaurantId, formData) => {
-  // Assuming the update endpoint follows the same pattern
-  const response = await apiClient.put(`/api/update-restaurent/${restaurantId}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  });
+  const response = await apiClient.put(
+    `/api/update-restaurant/${restaurantId}`,
+    formData
+  );
   return response.data;
 };
 
 export const deleteRestaurant = async (restaurantId) => {
-  // Assuming delete endpoint
-  const response = await apiClient.delete(`/api/delete-restaurent/${restaurantId}`);
+  const response = await apiClient.delete(
+    `/api/delete-restaurant/${restaurantId}`
+  );
   return response.data;
 };

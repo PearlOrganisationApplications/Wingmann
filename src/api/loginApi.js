@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '', // Uses Vite proxy
+  baseURL: 'https://api.wingmann.online', // Uses Vite proxy
   headers: {
     'Content-Type': 'application/json',
   },

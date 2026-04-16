@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '/', // MUST be '/' to trigger the Vite proxy in dev and Redirects in prod
+  baseURL: 'https://api.wingmann.online', // MUST be '/' to trigger the Vite proxy in dev and Redirects in prod
   headers: {
     'Content-Type': 'application/json',
   },
