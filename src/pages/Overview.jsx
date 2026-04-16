@@ -114,7 +114,7 @@ const Overview = () => {
           <p className="text-sm text-slate-400 font-medium">Performance metrics for the selected duration</p>
         </div>
 
-        <div className="flex items-center gap-4 bg-[#F5F6FA] p-3 rounded-2xl border border-slate-200">
+        {/* <div className="flex items-center gap-4 bg-[#F5F6FA] p-3 rounded-2xl border border-slate-200">
           <div className="flex items-center gap-2 px-3 border-r border-slate-300">
             <Filter size={16} className="text-slate-400" />
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Filter</span>
@@ -134,7 +134,7 @@ const Overview = () => {
               className="bg-transparent text-xs font-bold text-[#1F1F2E] outline-none cursor-pointer"
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* KPI GRID */}
@@ -142,7 +142,7 @@ const Overview = () => {
         <StatCard title="Total Traffic" value={data?.traffic?.today} icon={MousePointer2} trend="Live" subtext="Today's Active Visits" isHero={true} />
         <StatCard title="New Signups" value={data?.dashboard?.users?.total} icon={Users} trend={data?.dashboard?.users?.growth} subtext="User acquisition" />
         <StatCard title="Scheduled" value={data?.dashboard?.interviews?.total} icon={ClipboardCheck} trend={data?.dashboard?.interviews?.growth} subtext="Interviews in range" />
-        <StatCard title="Dates Planned" value={data?.dashboard?.datesPlanned?.total} icon={Calendar} trend={data?.dashboard?.datesPlanned?.growth} subtext="Successful matches" />
+        {/* <StatCard title="Dates Planned" value={data?.dashboard?.datesPlanned?.total} icon={Calendar} trend={data?.dashboard?.datesPlanned?.growth} subtext="Successful matches" /> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

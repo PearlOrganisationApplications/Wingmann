@@ -14,6 +14,7 @@ const WingmatesSignUp = ({ onClose, refreshData, initialData }) => {
     city: '',
     password: '', // New field required by your API
   });
+  console.log('formData : ',formData)
 
   useEffect(() => {
     if (initialData) {
@@ -46,7 +47,9 @@ const WingmatesSignUp = ({ onClose, refreshData, initialData }) => {
         const response = await registerInterviewer({
           name: formData.name,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          phonenumber:formData.mobileNumber
+
         });
 
         if (response.success) {

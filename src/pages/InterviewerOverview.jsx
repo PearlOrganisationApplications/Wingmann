@@ -2,41 +2,48 @@ import React, { useEffect, useState } from "react";
 import { Calendar, CheckCircle, Clock, ChevronRight } from "lucide-react";
 import { interviewApi } from "../api/interviewApi";
 const InterviewerOverview = () => {
-   const [loading, setLoading] = useState(true);
-   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [bookings, setBookings] = useState([]);
+  const [upComingInterview, setUpComingInterview] = useState([]);
+  console.log("upComingInterview : ", upComingInterview);
 
-   const data = bookings; // your response
+  const data = bookings; // your response
 
-const now = new Date();
+  const now = new Date();
 
-let upcoming = 0;
-let completed = 0;
-let totalHours = 0;
+  let upcoming = 0;
+  let completed = 0;
+  let totalHours = 0;
 
-data.forEach((item) => {
-  const interviewDate = new Date(item.date);
+  data.forEach((item) => {
+    const interviewDate = new Date(item.date);
 
-  // ✅ Completed
-  if (item.status === "accepted") {
-    completed++;
-  }
+    // ✅ Completed
+    if (item.status === "accepted" || item.status === "rejected") {
+      completed++;
+    }
 
-  // ✅ Upcoming
-  if ( item.status === "submitted") {
-    upcoming++;
-  }
+    // ✅ Upcoming
+    if (item.status === "submitted") {
+      upcoming++;
+    }
 
-  // ✅ Total Hours (1 per interview)
-  totalHours += 1;
-});
+    // ✅ Total Hours (1 per interview)
+    totalHours += 1;
+  });
 
-console.log({
-  upcoming,
-  completed,
-  totalHours
-});
+  console.log({
+    upcoming,
+    completed,
+    totalHours,
+  });
   const stats = [
-    { label: "Upcoming", value: upcoming, icon: Calendar, color: "bg-blue-500" },
+    {
+      label: "Upcoming",
+      value: upcoming,
+      icon: Calendar,
+      color: "bg-blue-500",
+    },
     {
       label: "Completed",
       value: completed,
@@ -52,7 +59,10 @@ console.log({
       setLoading(true);
       const response = await interviewApi.getBookings();
       if (response.success) setBookings(response.data || []);
-      console.log('res :',response.data)
+      console.log("res sdfd:", response?.data);
+      setUpComingInterview(
+        response?.data?.filter((item) => item.status === "submitted"),
+      );
     } catch (error) {
       showNotify("Failed to load bookings", "error");
     } finally {
@@ -96,33 +106,46 @@ console.log({
             Upcoming Schedule
           </h3>
           <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="flex items-center p-4 bg-[#F5F6FA] rounded-2xl border border-slate-100 group hover:border-indigo-200 transition-all cursor-pointer"
-              >
-                <div className="w-14 h-14 bg-white rounded-xl flex flex-col items-center justify-center border border-slate-200 mr-4 shadow-sm group-hover:scale-105 transition-transform">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                    Oct
-                  </span>
-                  <span className="text-xl font-black text-[#1F1F2E]">
-                    2{i}
-                  </span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-bold text-[#1F1F2E]">
-                    Interview with Sarah Jenkins
-                  </h4>
-                  <p className="text-sm text-slate-500 flex items-center gap-2 mt-1">
-                    <Clock size={14} className="text-indigo-500" /> 10:30 AM -
-                    11:30 AM
-                  </p>
-                </div>
-                <button className="p-2 bg-white rounded-lg text-slate-400 hover:text-indigo-600 transition-colors">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            ))}
+            {Array.isArray(upComingInterview) &&
+              upComingInterview.map((item) => {
+                const dateObj = new Date(item.date);
+
+                const day = dateObj.getDate();
+                const month = dateObj.toLocaleString("default", {
+                  month: "short",
+                });
+
+                return (
+                  <div
+                    key={item._id}
+                    className="flex items-center p-4 bg-[#F5F6FA] rounded-2xl border border-slate-100 group hover:border-indigo-200 transition-all cursor-pointer"
+                  >
+                    <div className="w-14 h-14 bg-white rounded-xl flex flex-col items-center justify-center border border-slate-200 mr-4 shadow-sm group-hover:scale-105 transition-transform">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                        {month}
+                      </span>
+                      <span className="text-xl font-black text-[#1F1F2E]">
+                        {day}
+                      </span>
+                    </div>
+
+                    <div className="flex-1">
+                      <h4 className="font-bold text-[#1F1F2E]">
+                        Interview with {item.userName}
+                      </h4>
+
+                      <p className="text-sm text-slate-500 flex items-center gap-2 mt-1">
+                        <Clock size={14} className="text-indigo-500" />
+                        {item.time}
+                      </p>
+                    </div>
+
+                    <button className="p-2 bg-white rounded-lg text-slate-400 hover:text-indigo-600 transition-colors">
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

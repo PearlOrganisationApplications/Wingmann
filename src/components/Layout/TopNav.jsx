@@ -32,23 +32,23 @@ const TopNav = ({ title, onMenuClick }) => {
 
       <div className="flex items-center gap-3 md:gap-6 shrink-0">
         <div className="relative hidden lg:block">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+          {/* <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
           <input
             type="text"
             placeholder="Search analytics..."
             className="pl-11 pr-6 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-[#1F1F2E] w-48 xl:w-72 focus:border-[#1F1F2E] focus:ring-4 focus:ring-[#1F1F2E]/5 outline-none transition-all placeholder:text-slate-400 font-medium shadow-sm"
-          />
+          /> */}
         </div>
 
         <button
-          onClick={() => setShowNotifications(!showNotifications)}
-          className={`p-2.5 rounded-full border transition-all relative shadow-sm ${showNotifications
-              ? 'bg-[#1F1F2E] text-white border-[#1F1F2E]'
-              : 'bg-white text-[#1F1F2E] border-slate-200'
-            }`}
+          // onClick={() => setShowNotifications(!showNotifications)}
+          // className={`p-2.5 rounded-full border transition-all relative shadow-sm ${showNotifications
+          //     ? 'bg-[#1F1F2E] text-white border-[#1F1F2E]'
+          //     : 'bg-white text-[#1F1F2E] border-slate-200'
+          //   }`}
         >
-          <Bell size={20} />
-          <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#F5F6FA]"></span>
+          {/* <Bell size={20} />
+          <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#F5F6FA]"></span> */}
         </button>
 
         <div className="flex items-center gap-3 pl-4 border-l border-slate-200">

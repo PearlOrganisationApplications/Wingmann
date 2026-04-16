@@ -14,3 +14,6 @@ export default defineConfig({
     },
   },
 })
+
+// https://api.wingmann.online
+// http://localhost:5000
