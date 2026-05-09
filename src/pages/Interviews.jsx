@@ -126,7 +126,7 @@ const Interviews = () => {
     if (loading) return <div className="p-10 text-center font-bold text-slate-500 animate-pulse">Loading pipeline...</div>;
 
     return (
-        <div className="relative md:pt-4 pb-20 bg-slate-50/50 min-h-screen space-y-6 md:space-y-8 px-4 md:px-10">
+        <div className="relative md:pt-4 pb-20 bg-slate-50/50 min-h-screen space-y-6 md:space-y-8 ">
             {notification && <Toast message={notification.msg} type={notification.type} onClose={() => setNotification(null)} />}
 
             {/* Header */}

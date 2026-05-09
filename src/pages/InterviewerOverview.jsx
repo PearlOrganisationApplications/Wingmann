@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, CheckCircle, Clock, ChevronRight } from "lucide-react";
 import { interviewApi } from "../api/interviewApi";
+import { useNavigate } from "react-router-dom";
 const InterviewerOverview = () => {
   const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState([]);
   const [upComingInterview, setUpComingInterview] = useState([]);
+  const navigate = useNavigate();
 
 
   const data = bookings;
@@ -88,7 +90,7 @@ useEffect(() => {
 return (
   <div className="space-y-8 animate-in fade-in duration-500">
     {/* Stats Grid - Updated to 3 columns */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4 md:mx-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {stats.map((stat, idx) => (
         <div
           key={idx}
@@ -112,7 +114,7 @@ return (
     </div>
 
     {/* Main Content Area */}
-    <div className="grid grid-cols-1 mx-4 md:mx-10">
+    <div className="grid grid-cols-1">
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
         <h3 className="text-xl font-black text-[#1F1F2E] mb-6">
           Upcoming Schedule
@@ -130,6 +132,7 @@ return (
               return (
                 <div
                   key={item._id}
+                  onClick={()=>navigate('/interviews')}
                   className="flex items-center p-4 bg-[#F5F6FA] rounded-2xl border border-slate-100 group hover:border-indigo-200 transition-all cursor-pointer"
                 >
                   <div className="w-14 h-14 bg-white rounded-xl flex flex-col items-center justify-center border border-slate-200 mr-4 shadow-sm group-hover:scale-105 transition-transform">
